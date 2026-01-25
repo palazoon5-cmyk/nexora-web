@@ -1,84 +1,571 @@
-<!DOCTYPE html>
+```html
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NEXORA · Agencia de IA</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Automatización con IA para captar, atender y convertir clientes 24/7." />
+
   <style>
-    body { font-family: 'Arial', sans-serif; }
+    :root{
+      --bg:#07080c;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.09);
+      --border:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --orange:#ff7a18;
+      --orange2:#ffb36b;
+      --shadow: 0 30px 80px rgba(0,0,0,.55);
+      --radius: 18px;
+      --max: 1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* Background: grid + glow */
+    .bg{
+      position:fixed; inset:0; z-index:-2;
+      background:
+        radial-gradient(900px 500px at 50% 35%, rgba(255,122,24,.22), transparent 60%),
+        radial-gradient(700px 400px at 18% 55%, rgba(120,90,255,.14), transparent 65%),
+        radial-gradient(650px 380px at 82% 55%, rgba(0,180,255,.10), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,.04), transparent 40%),
+        var(--bg);
+    }
+    .grid{
+      position:fixed; inset:-2px; z-index:-1;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 72px 72px;
+      opacity:.10;
+      mask-image: radial-gradient(500px 350px at 50% 25%, black 35%, transparent 70%);
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px}
+
+    .nav{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,8,12,.78), rgba(7,8,12,.35));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 0;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: radial-gradient(circle at 35% 35%, var(--orange2), var(--orange));
+      box-shadow: 0 10px 30px rgba(255,122,24,.25);
+    }
+    .links{display:flex; gap:18px; color:var(--muted); font-size:14px}
+    .links a{padding:8px 10px; border-radius:12px}
+    .links a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .nav-cta{display:flex; gap:10px; align-items:center}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; padding:10px 14px; border-radius:14px; font-weight:600;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(255,122,24,.35);
+      background: linear-gradient(180deg, rgba(255,122,24,.95), rgba(255,122,24,.78));
+      color:#140a02;
+      box-shadow: 0 18px 40px rgba(255,122,24,.20);
+    }
+    .btn.primary:hover{filter:saturate(1.05) brightness(1.03)}
+
+    /* Hero */
+    .hero{padding:64px 0 34px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .9fr;
+      gap:28px;
+      align-items:center;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 6px rgba(255,122,24,.14);
+    }
+    h1{
+      margin:16px 0 10px;
+      font-size: clamp(34px, 4.1vw, 54px);
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    .accent{color:var(--orange)}
+    .lead{color:var(--muted); font-size:16px; line-height:1.6; margin:0 0 18px}
+    .hero-ctas{display:flex; gap:12px; flex-wrap:wrap}
+    .mini{display:flex; gap:12px; margin-top:18px; color:var(--muted); font-size:13px; flex-wrap:wrap}
+    .mini span{display:inline-flex; align-items:center; gap:8px}
+    .check{
+      width:18px; height:18px; border-radius:8px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:inline-flex; align-items:center; justify-content:center;
+      color:var(--orange);
+      font-weight:900;
+      font-size:12px;
+    }
+
+    /* Mock card */
+    .mock{
+      position:relative;
+      border-radius: 26px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      padding:18px;
+      min-height: 340px;
+    }
+    .mock::before{
+      content:"";
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(circle at 40% 45%, rgba(255,122,24,.35), transparent 55%),
+        radial-gradient(circle at 60% 60%, rgba(120,90,255,.18), transparent 55%);
+      filter: blur(18px);
+      opacity:.9;
+    }
+    .mock-inner{position:relative; height:100%}
+    .card{
+      position:absolute; left:18px; right:18px; top:78px;
+      height:170px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(10,11,16,.55);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 22px 60px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .card .bar{
+      height:10px;
+      background: linear-gradient(90deg, rgba(255,122,24,.95), rgba(255,180,107,.85));
+    }
+    .card .pad{padding:16px}
+    .chip{
+      width:42px; height:32px; border-radius:8px;
+      background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+    }
+    .waves{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 10% 30%, rgba(255,255,255,.05), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,.05), transparent 45%);
+      opacity:.75;
+    }
+    .card small{color:var(--muted)}
+    .pill{
+      position:absolute; top:18px; left:18px;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .pill b{color:var(--text); font-weight:700}
+
+    /* Sections */
+    section{padding:34px 0}
+    .section-title{
+      display:flex; align-items:end; justify-content:space-between;
+      gap:12px; margin-bottom:14px
+    }
+    h2{margin:0; font-size:22px; letter-spacing:-.2px}
+    .sub{margin:0; color:var(--muted); font-size:14px}
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .cardx{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:16px;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .cardx:hover{transform: translateY(-2px); background: rgba(255,255,255,.055)}
+    .icon{
+      width:40px; height:40px; border-radius:14px;
+      background: rgba(255,122,24,.13);
+      border:1px solid rgba(255,122,24,.22);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:10px;
+      color:var(--orange);
+      font-weight:900;
+      font-size:14px;
+    }
+    .cardx h3{margin:0 0 6px; font-size:16px}
+    .cardx p{margin:0; color:var(--muted); font-size:14px; line-height:1.55}
+
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    .panel{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding:16px;
+    }
+    .price{
+      display:flex; align-items:baseline; gap:10px; margin:10px 0 0;
+    }
+    .price b{font-size:28px}
+    .price span{color:var(--muted); font-size:13px}
+    ul{margin:12px 0 0; padding-left:18px; color:var(--muted)}
+    li{margin:8px 0}
+
+    /* Form */
+    form{display:grid; gap:10px; margin-top:12px}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(10,11,16,.55);
+      color:var(--text);
+      outline:none;
+    }
+    input::placeholder, textarea::placeholder{color:rgba(255,255,255,.35)}
+    textarea{min-height:110px; resize:vertical}
+    .row{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
+    .fine{font-size:12px; color:var(--muted); line-height:1.5}
+    .fine a{color:rgba(255,255,255,.78); text-decoration:underline}
+    footer{padding:26px 0 34px; color:var(--muted); font-size:13px}
+
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr; }
+      .mock{min-height: 320px}
+      .cards{grid-template-columns: 1fr}
+      .two{grid-template-columns: 1fr}
+      .links{display:none}
+      .row{grid-template-columns:1fr}
+    }
   </style>
 </head>
-<body class="bg-white text-[#333333]">
 
-  <!-- HERO -->
-  <header class="bg-[#333333] text-white text-center p-8">
-    <img src="logo-nexora.png" alt="Logo Nexora" class="mx-auto w-32 mb-4 rounded-lg shadow-xl">
-    <h1 class="text-4xl font-bold tracking-wide">NEXORA</h1>
-    <p class="text-lg mt-2">Agencia de IA fundada por Cristian Palazón · La Llagosta, Barcelona</p>
-  </header>
+<body>
+  <div class="bg"></div>
+  <div class="grid"></div>
 
-  <!-- SERVICIOS -->
-  <section class="max-w-5xl mx-auto py-12 px-6">
-    <h2 class="text-3xl font-bold mb-6 text-center text-[#333333]">Servicios de Inteligencia Artificial</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-base">
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Automatizar WhatsApp con IA</div>
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Automatizar Correo con IA</div>
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Captar clientes con IA</div>
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Chatbots y Asistentes Virtuales</div>
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Crear facturas con IA</div>
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Crear presupuestos con IA</div>
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Gestión de incidencias con IA</div>
-      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Optimización de Marketing Digital</div>
+  <div class="nav">
+    <div class="wrap">
+      <div class="nav-inner">
+        <a class="brand" href="#top">
+          <span class="logo" aria-hidden="true"></span>
+          <span>NEXORA</span>
+        </a>
+
+        <nav class="links" aria-label="Navegación">
+          <a href="#servicios">Servicios</a>
+          <a href="#como">Cómo funciona</a>
+          <a href="#precios">Precios</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn" href="#servicios">Ver servicios</a>
+          <a class="btn primary" href="#contacto">Pedir propuesta</a>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- FORMULARIO -->
-  <section class="max-w-2xl mx-auto py-12 px-6 bg-[#f5f5f5] rounded-xl shadow-md">
-    <h2 class="text-2xl font-semibold mb-6 text-center">Solicita tu solución con IA</h2>
-    <form action="https://formspree.io/f/TU_CODIGO" method="POST" class="space-y-4">
-      <div>
-        <label class="block font-medium">Nombre de la empresa</label>
-        <input type="text" name="empresa" required class="w-full border border-gray-300 p-2 rounded-lg"/>
-      </div>
-      <div>
-        <label class="block font-medium">Nombre de contacto</label>
-        <input type="text" name="nombre" required class="w-full border border-gray-300 p-2 rounded-lg"/>
-      </div>
-      <div>
-        <label class="block font-medium">Correo electrónico</label>
-        <input type="email" name="email" required class="w-full border border-gray-300 p-2 rounded-lg"/>
-      </div>
-      <div>
-        <label class="block font-medium">¿Qué problema quieres solucionar con IA?</label>
-        <textarea name="descripcion" rows="4" required class="w-full border border-gray-300 p-2 rounded-lg"></textarea>
-      </div>
-      <div class="flex items-center space-x-2">
-        <input type="checkbox" required/>
-        <label class="text-sm">Acepto la <a href="#privacidad" class="underline text-blue-600">política de privacidad</a></label>
-      </div>
-      <button type="submit" class="bg-[#333333] text-white px-6 py-2 rounded-lg hover:bg-[#222] transition">
-        Enviar
-      </button>
-    </form>
-  </section>
+  <main id="top" class="wrap">
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="badge"><span class="dot"></span> Automatizaciones con IA para negocios</div>
 
-  <!-- POLÍTICA RGPD -->
-  <section id="privacidad" class="max-w-3xl mx-auto py-12 px-6 text-sm text-[#333333]">
-    <h3 class="text-xl font-bold mb-4">Política de privacidad</h3>
-    <p class="mb-4">
-      En NEXORA, gestionamos tus datos de forma segura conforme al Reglamento General de Protección de Datos (RGPD). Tus datos serán utilizados únicamente para responder a tu solicitud. No se cederán a terceros sin tu consentimiento previo.
-    </p>
-    <p>
-      Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición escribiéndonos a nuestro email de contacto. Al enviar el formulario aceptas nuestra política de privacidad.
-    </p>
-  </section>
+          <h1>
+            Una experiencia clara y moderna que te pone <span class="accent">en control</span>
+          </h1>
 
-  <!-- FOOTER -->
-  <footer class="bg-gray-100 text-center text-sm p-6 text-gray-600">
-    © 2026 NEXORA · Agencia de IA · La Llagosta, Barcelona<br/>
-    <a href="#privacidad" class="underline">Política de privacidad</a>
-  </footer>
+          <p class="lead">
+            Landing + captación de leads + automatización (citas, recordatorios, facturas, soporte).
+            Primero conversión, luego escalado con IA.
+          </p>
 
+          <div class="hero-ctas">
+            <a class="btn primary" href="#contacto">Pedir propuesta</a>
+            <a class="btn" href="#como">Cómo funciona</a>
+          </div>
+
+          <div class="mini" aria-label="beneficios">
+            <span><span class="check">✓</span> Más leads</span>
+            <span><span class="check">✓</span> Respuesta rápida</span>
+            <span><span class="check">✓</span> Flujos automáticos</span>
+          </div>
+        </div>
+
+        <div class="mock" aria-label="Visual del producto">
+          <div class="mock-inner">
+            <div class="pill"><span class="dot"></span> <b>Nexora Flow</b> · Automatización</div>
+
+            <div class="card" role="img" aria-label="Tarjeta decorativa">
+              <div class="bar"></div>
+              <div class="waves"></div>
+              <div class="pad">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                  <div class="chip"></div>
+                  <small>IA + Procesos</small>
+                </div>
+                <div style="margin-top:18px; display:flex; align-items:end; justify-content:space-between; gap:12px;">
+                  <div>
+                    <div style="font-weight:800; letter-spacing:.8px;">CAPTA · ATIENDE · CIERRA</div>
+                    <small>Formularios · Citas · Recordatorios</small>
+                  </div>
+                  <div style="display:flex; gap:8px; align-items:center;">
+                    <span style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.16)"></span>
+                    <span style="width:18px;height:18px;border-radius:50%;background:rgba(255,122,24,.85);border:1px solid rgba(255,122,24,.35)"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:absolute; bottom:18px; left:18px; right:18px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" href="#contacto">Pedir propuesta</a>
+              <a class="btn" href="#precios">Ver precios</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="servicios">
+      <div class="section-title">
+        <div>
+          <h2>Servicios</h2>
+          <p class="sub">Bloques listos para combinar según tu caso.</p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="cardx">
+          <div class="icon">⚡</div>
+          <h3>Landing de conversión</h3>
+          <p>Diseño moderno, CTA claro, estructura orientada a captar solicitudes.</p>
+        </article>
+
+        <article class="cardx">
+          <div class="icon">📅</div>
+          <h3>Gestión de citas</h3>
+          <p>Reserva, confirmaciones y recordatorios para reducir no-shows.</p>
+        </article>
+
+        <article class="cardx">
+          <div class="icon">🧾</div>
+          <h3>Presupuestos / facturas</h3>
+          <p>Automatización de generación, envío y registro (según tu flujo).</p>
+        </article>
+
+        <article class="cardx">
+          <div class="icon">✉️</div>
+          <h3>Correo con IA</h3>
+          <p>Clasificación, respuestas iniciales y seguimiento de leads.</p>
+        </article>
+
+        <article class="cardx">
+          <div class="icon">🛠</div>
+          <h3>Soporte e incidencias</h3>
+          <p>Registro, categorización y respuesta inicial automatizada.</p>
+        </article>
+
+        <article class="cardx">
+          <div class="icon">📈</div>
+          <h3>Optimización</h3>
+          <p>Mejoras continuas en copy, conversión y automatizaciones.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="como">
+      <div class="section-title">
+        <div>
+          <h2>Cómo funciona</h2>
+          <p class="sub">3 pasos para dejarlo operativo.</p>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="panel">
+          <h3 style="margin:0 0 6px;">1) Diagnóstico</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.6">
+            Definimos objetivo, flujo de mensajes y puntos de control.
+          </p>
+          <ul>
+            <li>Qué quieres automatizar</li>
+            <li>Qué datos necesitas</li>
+            <li>Qué medir (leads, citas, cierres)</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin:0 0 6px;">2) Implementación</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.6">
+            Construyo la landing y conecto el flujo (si aplica).
+          </p>
+          <ul>
+            <li>Formulario + captación</li>
+            <li>Automatizaciones (según pack)</li>
+            <li>Pruebas con casos reales</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin:0 0 6px;">3) Optimización</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.6">
+            Ajustes según rendimiento y feedback.
+          </p>
+          <ul>
+            <li>Mejoras de conversión</li>
+            <li>Automatizaciones extra</li>
+            <li>Mantenimiento</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin:0 0 6px;">Entrega</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.6">
+            Base lista para escalar: primero captas, luego automatizas.
+          </p>
+          <ul>
+            <li>Estructura clara</li>
+            <li>Secciones y CTAs</li>
+            <li>Formulario preparado</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="precios">
+      <div class="section-title">
+        <div>
+          <h2>Precios</h2>
+          <p class="sub">Estructura simple. Ajustable según el caso.</p>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="panel">
+          <h3 style="margin:0;">Web (Landing)</h3>
+          <div class="price"><b>199€</b> <span>pago único</span></div>
+          <ul>
+            <li>Landing enfocada a conversión</li>
+            <li>Secciones + CTA + formulario</li>
+            <li>Base preparada para escalar</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin:0;">Mantenimiento</h3>
+          <div class="price"><b>49€</b> <span>/ mes</span></div>
+          <ul>
+            <li>Cambios pequeños de contenido</li>
+            <li>Revisión técnica</li>
+            <li>Mejoras continuas (según alcance)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="section-title">
+        <div>
+          <h2>Contacto</h2>
+          <p class="sub">Rellena el formulario y te respondo con una propuesta.</p>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="panel">
+          <h3 style="margin:0 0 6px;">Pedir propuesta</h3>
+
+          <form onsubmit="return handleSubmit(event)">
+            <div class="row">
+              <input name="empresa" placeholder="Nombre de la empresa" required />
+              <input name="telefono" placeholder="Número de contacto" required />
+            </div>
+
+            <input type="email" name="email" placeholder="Correo electrónico" required />
+            <textarea name="problema" placeholder="Describe brevemente el problema a solucionar con IA" required></textarea>
+
+            <label class="fine">
+              <input type="checkbox" required />
+              He leído y acepto la <a href="#privacidad">política de privacidad</a>.
+            </label>
+
+            <button class="btn primary" type="submit">Enviar</button>
+            <p id="formMsg" class="fine" style="margin:0"></p>
+          </form>
+        </div>
+
+        <div class="panel" id="privacidad">
+          <h3 style="margin:0 0 8px;">Política de privacidad</h3>
+          <p class="fine" style="margin:0">
+            Los datos que envíes en este formulario se usarán únicamente para responder a tu solicitud y preparar una propuesta.
+            No se usarán para otros fines sin tu consentimiento.
+          </p>
+          <p class="fine">
+            Si quieres solicitar acceso, rectificación o eliminación de tus datos, responde al correo con el que te contactemos.
+          </p>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="#top">Volver arriba</a>
+            <a class="btn" href="#servicios">Ver servicios</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> NEXORA · Agencia de IA
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const msg = document.getElementById("formMsg");
+      msg.textContent = "Formulario preparado. Para recibir mensajes, conecta un endpoint (Formspree / n8n / backend).";
+      return false;
+    }
+  </script>
 </body>
 </html>
+```
