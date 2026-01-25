@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NEXORA · Agencia de IA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Arial', sans-serif; }
+  </style>
+</head>
+<body class="bg-white text-[#333333]">
+
+  <!-- HERO -->
+  <header class="bg-[#333333] text-white text-center p-8">
+    <img src="logo-nexora.png" alt="Logo Nexora" class="mx-auto w-32 mb-4 rounded-lg shadow-xl">
+    <h1 class="text-4xl font-bold tracking-wide">NEXORA</h1>
+    <p class="text-lg mt-2">Agencia de IA fundada por Cristian Palazón · La Llagosta, Barcelona</p>
+  </header>
+
+  <!-- SERVICIOS -->
+  <section class="max-w-5xl mx-auto py-12 px-6">
+    <h2 class="text-3xl font-bold mb-6 text-center text-[#333333]">Servicios de Inteligencia Artificial</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-base">
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Automatizar WhatsApp con IA</div>
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Automatizar Correo con IA</div>
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Captar clientes con IA</div>
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Chatbots y Asistentes Virtuales</div>
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Crear facturas con IA</div>
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Crear presupuestos con IA</div>
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Gestión de incidencias con IA</div>
+      <div class="bg-[#f9f9f9] p-6 rounded-xl shadow-sm">✅ Optimización de Marketing Digital</div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="max-w-2xl mx-auto py-12 px-6 bg-[#f5f5f5] rounded-xl shadow-md">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Solicita tu solución con IA</h2>
+    <form action="https://formspree.io/f/TU_CODIGO" method="POST" class="space-y-4">
+      <div>
+        <label class="block font-medium">Nombre de la empresa</label>
+        <input type="text" name="empresa" required class="w-full border border-gray-300 p-2 rounded-lg"/>
+      </div>
+      <div>
+        <label class="block font-medium">Nombre de contacto</label>
+        <input type="text" name="nombre" required class="w-full border border-gray-300 p-2 rounded-lg"/>
+      </div>
+      <div>
+        <label class="block font-medium">Correo electrónico</label>
+        <input type="email" name="email" required class="w-full border border-gray-300 p-2 rounded-lg"/>
+      </div>
+      <div>
+        <label class="block font-medium">¿Qué problema quieres solucionar con IA?</label>
+        <textarea name="descripcion" rows="4" required class="w-full border border-gray-300 p-2 rounded-lg"></textarea>
+      </div>
+      <div class="flex items-center space-x-2">
+        <input type="checkbox" required/>
+        <label class="text-sm">Acepto la <a href="#privacidad" class="underline text-blue-600">política de privacidad</a></label>
+      </div>
+      <button type="submit" class="bg-[#333333] text-white px-6 py-2 rounded-lg hover:bg-[#222] transition">
+        Enviar
+      </button>
+    </form>
+  </section>
+
+  <!-- POLÍTICA RGPD -->
+  <section id="privacidad" class="max-w-3xl mx-auto py-12 px-6 text-sm text-[#333333]">
+    <h3 class="text-xl font-bold mb-4">Política de privacidad</h3>
+    <p class="mb-4">
+      En NEXORA, gestionamos tus datos de forma segura conforme al Reglamento General de Protección de Datos (RGPD). Tus datos serán utilizados únicamente para responder a tu solicitud. No se cederán a terceros sin tu consentimiento previo.
+    </p>
+    <p>
+      Puedes ejercer tus derechos de acceso, rectificación, cancelación u oposición escribiéndonos a nuestro email de contacto. Al enviar el formulario aceptas nuestra política de privacidad.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-100 text-center text-sm p-6 text-gray-600">
+    © 2026 NEXORA · Agencia de IA · La Llagosta, Barcelona<br/>
+    <a href="#privacidad" class="underline">Política de privacidad</a>
+  </footer>
+
+</body>
+</html>
