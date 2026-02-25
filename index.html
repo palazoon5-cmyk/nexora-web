@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -8,12 +9,9 @@
 
   <style>
     :root{
-      /* Branding (según tu imagen) */
       --charcoal:#333333;
       --silver:#A6A6A6;
       --white:#FFFFFF;
-
-      /* UI */
       --bg:#08090d;
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.66);
@@ -22,8 +20,6 @@
       --shadow: 0 30px 80px rgba(0,0,0,.55);
       --radius: 18px;
       --max: 1120px;
-
-      /* Accent (plata/blanco) */
       --accent: var(--silver);
       --accent2: var(--white);
     }
@@ -38,7 +34,6 @@
       overflow-x:hidden;
     }
 
-    /* Background: grid + glow (gris/plateado) */
     .bg{
       position:fixed; inset:0; z-index:-2;
       background:
@@ -107,7 +102,6 @@
     }
     .btn.primary:hover{filter: brightness(1.03)}
 
-    /* Hero */
     .hero{padding:64px 0 34px}
     .hero-grid{
       display:grid;
@@ -150,7 +144,6 @@
       font-size:12px;
     }
 
-    /* Mock card */
     .mock{
       position:relative;
       border-radius: 26px;
@@ -212,7 +205,6 @@
     }
     .card small{color:var(--muted)}
 
-    /* Sections */
     section{padding:34px 0}
     .section-title{
       display:flex; align-items:end; justify-content:space-between;
@@ -267,7 +259,19 @@
     ul{margin:12px 0 0; padding-left:18px; color:var(--muted)}
     li{margin:8px 0}
 
-    /* Form */
+    .three{display:grid; grid-template-columns: repeat(3,1fr); gap:14px; align-items:start}
+    .recommended{position:relative; border-color: var(--accent2)}
+    .rec-badge{
+      position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(166,166,166,.88));
+      color:#0b0c10; font-size:11px; font-weight:800; padding:4px 14px;
+      border-radius:999px; white-space:nowrap; text-transform:uppercase; letter-spacing:.5px;
+    }
+    .panel .btn{margin-top:auto; width:100%; text-align:center}
+    .panel-flex{display:flex; flex-direction:column; min-height:340px}
+    .price-sub{color:var(--muted); font-size:13px; margin:2px 0 0}
+    .price-free{color:#34d399; font-weight:700; font-size:13px; margin:4px 0 0}
+
     form{display:grid; gap:10px; margin-top:12px}
     input, textarea{
       width:100%;
@@ -290,6 +294,7 @@
       .mock{min-height: 320px}
       .cards{grid-template-columns: 1fr}
       .two{grid-template-columns: 1fr}
+      .three{grid-template-columns: 1fr}
       .links{display:none}
       .row{grid-template-columns:1fr}
     }
@@ -304,7 +309,6 @@
     <div class="wrap">
       <div class="nav-inner">
         <a class="brand" href="#top">
-          <!-- LOGO EN LA RAÍZ: logo-nexora.png -->
           <img src="logo-nexora.png" alt="Nexora" />
           <span>NEXORA</span>
         </a>
@@ -495,29 +499,70 @@
       <div class="section-title">
         <div>
           <h2>Precios</h2>
-          <p class="sub">Estructura simple. Ajustable según el caso.</p>
+          <p class="sub">Estructura simple. Elige tu web y el mantenimiento que mejor se adapte a ti.</p>
         </div>
       </div>
 
-      <div class="two">
-        <div class="panel">
-          <h3 style="margin:0;">Web (Landing)</h3>
-          <div class="price"><b>199€</b> <span>pago único</span></div>
+      <div class="three">
+        <!-- Web Setup -->
+        <div class="panel panel-flex">
+          <h3 style="margin:0;">Diseño Web Premium</h3>
+          <div class="price"><b>397€</b> <span>pago único</span></div>
+          <p class="price-sub">Setup completo de tu web</p>
           <ul>
-            <li>Landing enfocada a conversión</li>
-            <li>Secciones + CTA + formulario</li>
-            <li>Base preparada para escalar</li>
+            <li>Web de 4 páginas (Powered by AI)</li>
+            <li>Kit de Bienvenida Digital</li>
+            <li>Hosting Profesional + SSL</li>
+            <li>Dominio personalizado</li>
           </ul>
+          <div style="margin-top:auto; padding-top:14px">
+            <a class="btn primary" href="https://buy.stripe.com/7sY8wReEk4FE1k143zdAk02" style="width:100%; text-align:center">Activar mi web</a>
+          </div>
         </div>
 
-        <div class="panel">
-          <h3 style="margin:0;">Mantenimiento</h3>
-          <div class="price"><b>49€</b> <span>/ mes</span></div>
+        <!-- Mantenimiento VIP -->
+        <div class="panel panel-flex recommended">
+          <span class="rec-badge">Recomendado</span>
+          <h3 style="margin:0;">Mantenimiento VIP</h3>
+          <div class="price"><b>69€</b> <span>/ mes</span></div>
+          <p class="price-free">1er mes GRATIS</p>
           <ul>
-            <li>Cambios pequeños de contenido</li>
-            <li>Revisión técnica</li>
-            <li>Mejoras continuas (según alcance)</li>
+            <li>Nosotros gestionamos todo</li>
+            <li>Cambios de contenido ilimitados</li>
+            <li>Actualizaciones y mejoras IA</li>
+            <li>Soporte dedicado prioritario</li>
           </ul>
+          <div style="margin-top:auto; padding-top:14px">
+            <a class="btn primary" href="https://buy.stripe.com/9B6dRbao4dcad2J2ZvdAk04" style="width:100%; text-align:center">Elegir VIP</a>
+          </div>
+        </div>
+
+        <!-- Mantenimiento Estándar -->
+        <div class="panel panel-flex">
+          <h3 style="margin:0;">Mantenimiento Estándar</h3>
+          <div class="price"><b>49€</b> <span>/ mes</span></div>
+          <p class="price-free">1er mes GRATIS</p>
+          <ul>
+            <li>Tú gestionas tu contenido</li>
+            <li>Panel de control CMS</li>
+            <li>Revisión técnica mensual</li>
+            <li>Soporte por email</li>
+          </ul>
+          <div style="margin-top:auto; padding-top:14px">
+            <a class="btn primary" href="https://buy.stripe.com/bJe28t2VC1tse6N9nTdAk05" style="width:100%; text-align:center">Elegir Estándar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chatbot 24/7 -->
+      <div class="panel" style="margin-top:14px; text-align:center">
+        <h3 style="margin:0 0 6px;">🤖 Chatbot IA 24/7</h3>
+        <p style="margin:0; color:var(--muted); line-height:1.6">
+          Gestiona reservas, responde dudas y cierra ventas automáticamente. Integración directa con tu web.
+        </p>
+        <div class="price" style="justify-content:center"><b>Consultar precio</b></div>
+        <div style="margin-top:14px">
+          <a class="btn" href="#contacto">Más información</a>
         </div>
       </div>
     </section>
